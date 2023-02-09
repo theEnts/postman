@@ -1,0 +1,440 @@
+{
+	"info": {
+		"_postman_id": "5e83b3e1-9197-4200-8797-c98549b35810",
+		"name": "GitHub_api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10153340"
+	},
+	"item": [
+		{
+			"name": "Issues",
+			"item": [
+				{
+					"name": "GET",
+					"item": [
+						{
+							"name": "Ge_Single_Issue",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "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",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "theEnts",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.github.com/repos/theEnts/postman/issues/1",
+									"protocol": "https",
+									"host": [
+										"api",
+										"github",
+										"com"
+									],
+									"path": [
+										"repos",
+										"theEnts",
+										"postman",
+										"issues",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get_All_Issues",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Body matches string\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"Found a bug\");\r",
+											"});\r",
+											"pm.test(\"Check body array\", function () {\r",
+											"    const body = pm.response.json();\r",
+											"    console.log(\"BODY \", body)\r",
+											"    pm.expect(Array.isArray(body));\r",
+											"\r",
+											"    for(let item of body){\r",
+											"        pm.expect(typeof(item.title)).equal(\"string\")\r",
+											"        pm.expect(typeof(item.number)).equal(\"number\")\r",
+											"        pm.expect(item.number).is.greaterThan(0);\r",
+											"    }\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "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",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "theEnts",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.github.com/repos/theEnts/postman/issues",
+									"protocol": "https",
+									"host": [
+										"api",
+										"github",
+										"com"
+									],
+									"path": [
+										"repos",
+										"theEnts",
+										"postman",
+										"issues"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get_First_Issue_Lables",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "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",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "theEnts",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.github.com/repos/theEnts/postman/issues/1/labels",
+									"protocol": "https",
+									"host": [
+										"api",
+										"github",
+										"com"
+									],
+									"path": [
+										"repos",
+										"theEnts",
+										"postman",
+										"issues",
+										"1",
+										"labels"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "POST",
+					"item": [
+						{
+							"name": "Create_Issue",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check issue number\"), function(){\r",
+											"    let body = pm.response.json();\r",
+											"\r",
+											"    pm.expect(body.number, \"Number is\").greaterThan(0);\r",
+											"    pm.expect(body.title, \"Name is\").equals(\"third issue\")\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "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",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "theEnts",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"title\": \"third issue\",\r\n\"body\": \"ne znam nishto\" }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.github.com/repos/theEnts/postman/issues",
+									"protocol": "https",
+									"host": [
+										"api",
+										"github",
+										"com"
+									],
+									"path": [
+										"repos",
+										"theEnts",
+										"postman",
+										"issues"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create_Issue_With_Lables",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "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",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "theEnts",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"title\": \"Found a bug\", \"lables\": [\"bug\", \"priority:critical\"] }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.github.com/repos/theEnts/postman/issues/lables",
+									"protocol": "https",
+									"host": [
+										"api",
+										"github",
+										"com"
+									],
+									"path": [
+										"repos",
+										"theEnts",
+										"postman",
+										"issues",
+										"lables"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Repos",
+			"item": [
+				{
+					"name": "Get",
+					"item": [
+						{
+							"name": "Get_Repos",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "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",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "theEnts",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.github.com/users/theEnts/repos",
+									"protocol": "https",
+									"host": [
+										"api",
+										"github",
+										"com"
+									],
+									"path": [
+										"users",
+										"theEnts",
+										"repos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get_Single_repo",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Your repo name\", function () {\r",
+											"    const body = pm.response.json();\r",
+											"    pm.expect(body.name, \"Name property\").equals(\"postman\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "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",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "theEnts",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.github.com/repos/theEnts/postman",
+									"protocol": "https",
+									"host": [
+										"api",
+										"github",
+										"com"
+									],
+									"path": [
+										"repos",
+										"theEnts",
+										"postman"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Commits",
+			"item": [
+				{
+					"name": "Get_commits",
+					"item": [
+						{
+							"name": "Get_Summator_commits",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "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",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "theEnts",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.github.com/repos/theEnts/Summator/commits",
+									"protocol": "https",
+									"host": [
+										"api",
+										"github",
+										"com"
+									],
+									"path": [
+										"repos",
+										"theEnts",
+										"Summator",
+										"commits"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
